@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Stethoscope, 
@@ -31,7 +31,7 @@ import {
 import { DOCTOR_CONTENT } from './content';
 
 // Reuseable Components
-const SectionHeading = ({ children, subtitle, light = false }: { children: React.ReactNode; subtitle?: string; light?: boolean }) => (
+const SectionHeading = ({ children, subtitle, light = false }: { children: ReactNode; subtitle?: string; light?: boolean }) => (
   <div className="mb-16 text-center">
     <motion.h2 
       initial={{ opacity: 0, y: 30 }}
@@ -290,49 +290,61 @@ export default function App() {
             {/* Float Stats - Adjusted for Mobile Bulkiness */}
             <motion.div 
               animate={{ 
-                y: [0, -20, 0],
-                rotate: [0, -2, 0, 2, 0]
+                y: [0, -15, 0],
+                rotate: [0, -1, 0, 1, 0]
               }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -left-4 md:-left-12 top-1/6 glass p-3 md:p-6 rounded-2xl md:rounded-3xl shadow-[var(--shadow-3d)] z-30 flex items-center gap-2 md:gap-4 hover:scale-110 transition-transform cursor-pointer border-white/60"
+              className="absolute -left-2 md:-left-12 top-[10%] glass p-2 md:p-4 rounded-2xl md:rounded-[32px] shadow-[var(--shadow-3d)] z-30 flex items-center gap-2 md:gap-4 hover:scale-110 transition-transform cursor-pointer border-white/60 group/stat overflow-hidden"
             >
-              <div className="w-10 h-10 md:w-14 md:h-14 bg-green-500 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shadow-green-200/50">
+              <div className="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent opacity-0 group-hover/stat:opacity-100 transition-opacity" />
+              <div className="w-10 h-10 md:w-14 md:h-14 bg-green-500 text-white rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg shadow-green-200/50 relative z-10">
                 <Stethoscope size={20} className="md:w-[28px] md:h-[28px]" />
               </div>
-              <div className="hidden xs:block">
-                <p className="text-[10px] text-slate-500 font-black uppercase tracking-wider mb-0.5">Clinic Status</p>
-                <p className="font-display font-black text-xs md:text-xl text-slate-900">OPEN NOW</p>
+              <div className="relative z-10 pr-2">
+                <p className="text-[9px] md:text-[10px] text-slate-500 font-black uppercase tracking-wider mb-0.5">Clinic Status</p>
+                <p className="font-display font-black text-xs md:text-xl text-slate-900 leading-none">OPEN NOW</p>
               </div>
             </motion.div>
 
             <motion.div 
               animate={{ 
-                y: [0, 20, 0],
-                rotate: [0, 2, 0, -2, 0]
+                y: [0, 15, 0],
+                rotate: [0, 1, 0, -1, 0]
               }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-              className="absolute -right-4 md:-right-8 bottom-1/4 glass p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-[var(--shadow-3d)] z-30 text-center hover:scale-110 transition-transform cursor-pointer border-white/60"
+              className="absolute -right-2 md:-right-8 bottom-[20%] glass p-2 md:p-5 rounded-2xl md:rounded-[32px] shadow-[var(--shadow-3d)] z-30 flex flex-col items-center hover:scale-110 transition-transform cursor-pointer border-white/60 group/exp"
             >
-              <p className="text-xl md:text-3xl font-black text-primary-600 mb-0.5 md:mb-1">30+</p>
-              <p className="text-[9px] md:text-xs font-black text-slate-500 uppercase tracking-widest leading-tight">Years Professional<br/>Practice</p>
+              <div className="w-full h-12 md:h-20 mb-2 rounded-xl md:rounded-2xl overflow-hidden relative">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop" className="w-full h-full object-cover group-hover/exp:scale-125 transition-transform duration-700" alt="Clinic" />
+                <div className="absolute inset-0 bg-primary-600/20" />
+              </div>
+              <div className="text-center px-2">
+                <p className="text-xl md:text-3xl font-black text-primary-600 leading-none mb-1">30+</p>
+                <p className="text-[8px] md:text-[10px] font-black text-slate-500 uppercase tracking-widest leading-tight">Years<br/>Practice</p>
+              </div>
             </motion.div>
 
             <motion.div 
               animate={{ 
-                scale: [1, 1.05, 1],
-                opacity: [0.8, 1, 0.8]
+                scale: [1, 1.03, 1],
+                opacity: [0.9, 1, 0.9]
               }}
               transition={{ duration: 4, repeat: Infinity }}
-              className="absolute -bottom-6 left-1/4 glass px-4 py-2 md:px-6 md:py-3 rounded-full shadow-2xl z-30 flex items-center gap-2 border-white/80"
+              className="absolute -bottom-4 md:-bottom-8 left-1/2 -translate-x-1/2 glass px-3 py-2 md:px-6 md:py-3 rounded-full shadow-2xl z-30 flex items-center gap-2 md:gap-3 border-white/80 whitespace-nowrap"
             >
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map(i => (
-                  <div key={i} className="w-6 h-6 md:w-8 md:h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
-                    <img src={`https://i.pravatar.cc/50?u=user${i}`} alt="user" />
+              <div className="flex -space-x-2 md:-space-x-3">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="w-6 h-6 md:w-10 md:h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm">
+                    <img src={`https://i.pravatar.cc/100?u=user${i+10}`} alt="user" className="w-full h-full object-cover" />
                   </div>
                 ))}
               </div>
-              <span className="text-[10px] md:text-sm font-bold text-slate-800 tracking-tight">4.9/5 Patient Rating</span>
+              <div className="flex flex-col">
+                <div className="flex gap-0.5">
+                  {[1,2,3,4,5].map(s => <Star key={s} size={10} className="text-yellow-400 fill-yellow-400" />)}
+                </div>
+                <span className="text-[9px] md:text-xs font-black text-slate-800 tracking-tight">4.9/5 RATING</span>
+              </div>
             </motion.div>
           </motion.div>
         </div>
@@ -357,16 +369,24 @@ export default function App() {
                   viewport={{ once: true }}
                   className="card-3d p-10 rounded-[40px] group relative overflow-hidden h-full flex flex-col"
                 >
-                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary-50 rounded-full group-hover:scale-150 transition-transform duration-500 -z-10" />
-                  <div className="w-16 h-16 bg-white text-primary-600 rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-primary-100 group-hover:bg-primary-600 group-hover:text-white transition-all duration-300 transform group-hover:rotate-12 group-hover:scale-110">
+                  <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary-50 rounded-full group-hover:scale-150 transition-transform duration-700 -z-10" />
+                  <div className="w-16 h-16 bg-white text-primary-600 rounded-2xl flex items-center justify-center mb-10 shadow-xl shadow-primary-100 group-hover:bg-primary-600 group-hover:text-white transition-all duration-500 transform group-hover:-translate-y-3 group-hover:rotate-12 group-hover:scale-110">
                     <IconComp size={32} />
                   </div>
                   <h3 className="text-2xl font-bold mb-5 group-hover:text-primary-700 transition-colors">{service.title}</h3>
                   <p className="text-slate-500 leading-relaxed font-medium mb-8">
                     {service.description}
                   </p>
-                  <a href="#appointment" className="mt-auto flex items-center gap-2 font-bold text-primary-600 group-hover:translate-x-2 transition-transform">
-                    Learn More <ArrowRight size={16} />
+                  <a href="#appointment" className="mt-auto inline-flex items-center gap-2 font-bold text-primary-600 group/link">
+                    <span className="relative overflow-hidden h-6">
+                      <span className="inline-block transition-all duration-500 group-hover:-translate-y-full">
+                        Learn More
+                      </span>
+                      <span className="absolute left-0 top-full inline-block transition-all duration-500 group-hover:-translate-y-full text-primary-700 whitespace-nowrap">
+                        Book Appointment
+                      </span>
+                    </span>
+                    <ArrowRight size={16} className="group-hover:translate-x-2 transition-transform duration-300" />
                   </a>
                 </motion.div>
               );
@@ -416,24 +436,100 @@ export default function App() {
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section className="section-padding bg-slate-50">
-        <div className="max-w-7xl mx-auto px-8">
-          <SectionHeading subtitle="Peek inside our state-of-the-art facilities designed for patient comfort.">
-            Gallery & Facility
+      {/* Gallery & Success Stories Section */}
+      <section className="section-padding bg-slate-50 overflow-hidden relative">
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(#0ea5e9 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+        <div className="max-w-7xl mx-auto px-8 relative z-10">
+          <SectionHeading subtitle="Peek inside our world-class facilities and the impact we create in patient lives every day.">
+            Impact & Facility
           </SectionHeading>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-            {(DOCTOR_CONTENT as any).gallery?.map((img: string, i: number) => (
-              <motion.div 
-                key={i}
-                whileHover={{ scale: 1.05, rotate: 2 }}
-                className={`rounded-[32px] overflow-hidden shadow-xl aspect-square relative group ${i % 2 === 1 ? 'translate-y-8' : ''}`}
-              >
-                <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125" alt="Facility" />
-                <div className="absolute inset-0 bg-primary-600/0 group-hover:bg-primary-600/20 transition-all duration-300" />
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-8 md:h-[800px]">
+            {/* Main Story / Feature */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+              className="md:col-span-2 md:row-span-2 rounded-[56px] overflow-hidden shadow-[0_40px_80px_-20px_rgba(0,0,0,0.2)] relative group cursor-pointer border-[12px] border-white"
+            >
+              <img src={(DOCTOR_CONTENT as any).gallery[0]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[3s]" alt="Clinical Excellence" />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent p-12 flex flex-col justify-end text-white">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  className="bg-primary-500 w-fit px-6 py-2 rounded-full text-xs font-black uppercase tracking-[0.2em] mb-6 shadow-xl"
+                >
+                  Success Story
+                </motion.div>
+                <h3 className="text-5xl font-black mb-6 leading-tight tracking-tighter">Global Care <br /><span className="text-primary-400">In The Heart of Mumbai.</span></h3>
+                <p className="text-slate-300 font-bold text-lg max-w-md leading-relaxed">Our main unit at Shivaji Nagar integrates UK medical diagnostics with local compassionate care for thousands of families.</p>
+              </div>
+              <div className="absolute top-8 right-8 w-20 h-20 glass rounded-full flex items-center justify-center rotate-12 group-hover:rotate-0 transition-transform duration-500">
+                <Stethoscope size={32} className="text-primary-600" />
+              </div>
+            </motion.div>
+
+            {/* Top Right Grid Item */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -8, rotate: -1 }}
+              className="md:col-span-1 rounded-[40px] overflow-hidden shadow-2xl relative group border-8 border-white"
+            >
+              <img src={(DOCTOR_CONTENT as any).gallery[1]} className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-1000" alt="Tech" />
+              <div className="absolute bottom-6 left-6 right-6 p-5 glass rounded-3xl translate-y-4 group-hover:translate-y-0 transition-transform opacity-0 group-hover:opacity-100 duration-500">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary-600 mb-1">Diagnostics</p>
+                <p className="text-sm font-bold text-slate-800">Advanced Digital Lab</p>
+              </div>
+            </motion.div>
+
+            {/* Middle Right Item */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              whileHover={{ y: -8, rotate: 1 }}
+              className="md:col-span-1 rounded-[40px] overflow-hidden shadow-2xl relative group border-8 border-white bg-slate-900"
+            >
+              <img src={(DOCTOR_CONTENT as any).gallery[2]} className="w-full h-full object-cover group-hover:scale-125 opacity-70 group-hover:opacity-100 transition-all duration-1000" alt="Consultation" />
+              <div className="absolute inset-0 flex items-center justify-center text-center p-6 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div>
+                   <p className="text-white font-black text-xl mb-2">30+ Years</p>
+                   <p className="text-primary-400 text-[10px] font-black uppercase tracking-widest">Clinical Trust</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Bottom Full Spread Grid Item */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              whileHover={{ scale: 1.02 }}
+              className="md:col-span-2 rounded-[40px] overflow-hidden shadow-2xl relative group border-8 border-white cursor-pointer"
+            >
+               <img src={(DOCTOR_CONTENT as any).gallery[3]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[4s]" alt="Patient Comfort" />
+               <div className="absolute inset-0 bg-primary-600/20 group-hover:bg-transparent transition-colors duration-700" />
+               <div className="absolute top-10 left-10">
+                  <div className="glass px-10 py-6 rounded-[32px] text-center shadow-2xl border-white/80">
+                    <p className="text-4xl font-black text-primary-600 mb-1">98%</p>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 whitespace-nowrap">Satisfaction Score</p>
+                  </div>
+               </div>
+               <div className="absolute bottom-10 right-10 flex items-center gap-4">
+                  <div className="bg-white/95 backdrop-blur-sm p-6 rounded-[32px] shadow-2xl border border-white max-w-[240px]">
+                    <div className="flex gap-1 text-yellow-400 mb-2">
+                       {[1,2,3,4,5].map(s => <Star key={s} size={14} fill="currentColor" />)}
+                    </div>
+                    <p className="text-xs font-bold text-slate-700 leading-relaxed italic">"The care is world class. Dr. Thakur takes time to explain everything."</p>
+                    <p className="text-[10px] font-black text-slate-400 mt-2 uppercase tracking-widest">— Patient Review</p>
+                  </div>
+               </div>
+            </motion.div>
           </div>
         </div>
       </section>
