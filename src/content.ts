@@ -49,6 +49,7 @@ export const DOCTOR_CONTENT = {
     {
       name: "Meenaz Hospital",
       location: "Govandi West, Lotus Colony, Shivaji Nagar, Mumbai, Maharashtra 400043",
+      image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80",
       fee: "₹700",
       timings: "Mon-Sat: 10:00 AM - 11:00 AM, 03:30 PM - 04:30 PM",
       hospitalHours: "Open 24 Hours",
@@ -88,14 +89,14 @@ export const DOCTOR_CONTENT = {
     }
   ],
   gallery: [
-    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1516549655169-df83a0774514?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1504813184591-01592fd03cfd?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1519494140261-d91e85a30ed9?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1576091160550-217359f4ecf8?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1629909613654-28a3a7c4d45e?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=2070&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80", 
+    "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=800&q=80", 
+    "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80", 
+    "https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1582750433449-64c7fe0736f8?auto=format&fit=crop&w=800&q=80", // Facility 4 - Reliable Equipment
+    "https://images.unsplash.com/photo-1519494140261-d91e85a30ed9?auto=format&fit=crop&w=800&q=80", 
+    "https://images.unsplash.com/photo-1512678080530-7760d81faba6?auto=format&fit=crop&w=800&q=80", // Clinic Image for About - Reliable
+    "https://images.unsplash.com/photo-1629909613654-28a3a7c4d45e?auto=format&fit=crop&w=800&q=80", 
   ],
   faqs: [
     {

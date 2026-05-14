@@ -158,6 +158,8 @@ export default function App() {
                 src="/images/doctor.png" 
                 alt={DOCTOR_CONTENT.name} 
                 className="w-full aspect-[4/5] object-cover"
+                loading="eager"
+                decoding="async"
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
                 <p className="text-white font-bold text-lg">{DOCTOR_CONTENT.name}</p>
@@ -251,7 +253,7 @@ export default function App() {
                 whileHover={{ scale: 1.02 }}
                 className={`relative overflow-hidden rounded-2xl aspect-square group cursor-pointer ${i === 0 ? 'col-span-2 row-span-2' : ''}`}
               >
-                <img src={img} alt={`Facility ${i+1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <img src={img} alt={`Facility ${i+1}`} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" loading="lazy" />
                 <div className="absolute inset-0 bg-medical-900/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <ExternalLink className="text-white" size={24} />
                 </div>
@@ -266,7 +268,7 @@ export default function App() {
         <div className="compact-container grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <div className="rounded-[2.5rem] overflow-hidden shadow-intense border-8 border-white relative aspect-[4/3]">
-               <img src={DOCTOR_CONTENT.gallery[5]} alt="Clinic" className="w-full h-full object-cover" />
+               <img src={DOCTOR_CONTENT.gallery[5]} alt="Clinic" className="w-full h-full object-cover" loading="lazy" />
             </div>
             <div className="absolute -bottom-6 -right-6 glass-card p-6 shadow-xl z-10 w-48 border-medical-50">
                <div className="flex items-center gap-3 mb-2">
@@ -513,18 +515,23 @@ export default function App() {
               <h4 className="text-[11px] font-bold mb-6 text-medical-400 uppercase tracking-[0.2em]">Clinic Locations</h4>
               <ul className="space-y-6">
                  {DOCTOR_CONTENT.clinics.map((c, i) => (
-                   <li key={i} className="space-y-1">
-                      <p className="font-bold text-[14px] uppercase tracking-tight text-slate-100">{c.name}</p>
-                      <p className="text-slate-500 text-[12px] font-medium">{c.location}</p>
-                      <div className="flex flex-col gap-1 pt-1">
-                        <div className="flex items-center gap-2 text-medical-400 text-[10px] font-bold uppercase tracking-widest">
-                          <Clock size={12} /> {c.timings}
-                        </div>
-                        {c.hospitalHours && (
-                          <div className="flex items-center gap-2 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
-                            <Plus size={12} /> {c.hospitalHours}
+                   <li key={i} className="flex gap-4 group">
+                      <div className="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 border border-white/10 group-hover:border-medical-500/50 transition-colors">
+                        <img src={c.image} alt={c.name} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" loading="lazy" />
+                      </div>
+                      <div className="space-y-1">
+                        <p className="font-bold text-[14px] uppercase tracking-tight text-slate-100 group-hover:text-medical-400 transition-colors">{c.name}</p>
+                        <p className="text-slate-500 text-[12px] font-medium line-clamp-1">{c.location}</p>
+                        <div className="flex flex-col gap-1 pt-1">
+                          <div className="flex items-center gap-2 text-medical-400 text-[10px] font-bold uppercase tracking-widest">
+                            <Clock size={12} /> {c.timings}
                           </div>
-                        )}
+                          {c.hospitalHours && (
+                            <div className="flex items-center gap-2 text-slate-500 text-[10px] font-bold uppercase tracking-widest">
+                              <Plus size={12} /> {c.hospitalHours}
+                            </div>
+                          )}
+                        </div>
                       </div>
                    </li>
                  ))}
