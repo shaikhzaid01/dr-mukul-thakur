@@ -61,19 +61,25 @@ const Nav = () => {
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-slate-100 py-3 shadow-sm' : 'bg-transparent py-5'}`}>
       <div className="compact-container flex justify-between items-center">
-        <a href="#home" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-medical-600 rounded-lg flex items-center justify-center text-white shadow-sm">
-            <Plus size={18} />
+        {/* Prominent Doctor Name in Nav */}
+        <a href="#home" className="flex items-center gap-3">
+          <div className="w-9 h-9 bg-medical-600 rounded-xl flex items-center justify-center text-white shadow-sm flex-shrink-0">
+            <Stethoscope size={20} />
           </div>
-          <span className="font-display font-bold text-lg tracking-tight text-slate-900">
-            {DOCTOR_CONTENT.name.split(' ').slice(1).join(' ')} <span className="text-medical-600 font-medium">Clinics</span>
-          </span>
+          <div className="flex flex-col">
+            <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-slate-900 leading-tight">
+              Dr. Mukul Thakur
+            </span>
+            <span className="text-[10px] sm:text-[11px] font-semibold text-medical-600 tracking-tight leading-none">
+              Consultant Physician & Diabetologist
+            </span>
+          </div>
         </a>
         
         <div className="hidden md:flex items-center gap-7 font-semibold text-[13px] text-slate-600">
           <a href="#home" className="hover:text-medical-600 transition-colors">Home</a>
-          <a href="#services" className="hover:text-medical-600 transition-colors">Services</a>
           <a href="#about" className="hover:text-medical-600 transition-colors">About</a>
+          <a href="#services" className="hover:text-medical-600 transition-colors">Services</a>
           <a href="#timings" className="hover:text-medical-600 transition-colors">OPD Hours</a>
           <a href="#gallery" className="hover:text-medical-600 transition-colors">Gallery</a>
           <a href="#faq" className="hover:text-medical-600 transition-colors">FAQ</a>
@@ -106,9 +112,13 @@ const Nav = () => {
             exit={{ opacity: 0, y: -10 }}
             className="absolute top-full left-0 right-0 bg-white border-b border-slate-100 p-6 flex flex-col gap-4 md:hidden shadow-xl"
           >
+            <div className="pb-3 border-b border-slate-100">
+              <p className="font-extrabold text-base text-slate-900">Dr. Mukul Thakur</p>
+              <p className="text-xs text-medical-600 font-semibold">Consultant Physician & Diabetologist</p>
+            </div>
             <a href="#home" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">Home</a>
+            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">About Dr. Mukul Thakur</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">Services</a>
-            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">About Dr. Thakur</a>
             <a href="#timings" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">OPD Hours</a>
             <a href="#gallery" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">Clinic Gallery</a>
             <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">FAQ</a>
@@ -135,7 +145,7 @@ export default function App() {
     <div className="min-h-screen selection:bg-medical-500 selection:text-white">
       <Nav />
 
-      {/* Hero Section - Compact & Clinical */}
+      {/* Hero Section - Prominent Doctor Name & Clinical Credentials */}
       <section id="home" className="relative pt-20 pb-10 md:pt-28 md:pb-12 overflow-hidden">
         <div className="absolute top-0 right-0 w-[40%] h-[60%] bg-gradient-to-bl from-medical-50 to-transparent rounded-full blur-[100px] -z-10 opacity-60" />
         <div className="absolute bottom-0 left-0 w-[30%] h-[40%] bg-gradient-to-tr from-sky-50 to-transparent rounded-full blur-[80px] -z-10 opacity-40" />
@@ -146,18 +156,22 @@ export default function App() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 bg-medical-50 border border-medical-100 px-3 py-1 rounded-full mb-6 flex-wrap">
+            <div className="inline-flex items-center gap-2 bg-medical-50 border border-medical-100 px-3 py-1 rounded-full mb-4 flex-wrap">
               <span className="w-1.5 h-1.5 bg-medical-500 rounded-full animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-medical-700">30+ Years Experience</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-medical-700">30+ Years Clinical Experience</span>
               <span className="text-slate-300">•</span>
               <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Mon, Wed, Sat (20:00 – 01:00)</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6 tracking-tight text-slate-900">
-              {DOCTOR_CONTENT.heroHeadline.split(' ').slice(0, -1).join(' ')} <br />
-              <span className="text-medical-600">{DOCTOR_CONTENT.heroHeadline.split(' ').slice(-1)}</span>
+            {/* Prominent Doctor Name Heading */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.08] mb-2 tracking-tight text-slate-900">
+              Dr. Mukul Thakur
             </h1>
             
+            <p className="text-lg md:text-xl font-bold text-medical-700 mb-4">
+              Consultant Physician & Diabetologist
+            </p>
+
             <p className="text-base md:text-lg text-slate-500 font-medium mb-8 max-w-lg leading-relaxed">
               {DOCTOR_CONTENT.heroSubheadline}
             </p>
@@ -190,7 +204,7 @@ export default function App() {
 
             <p className="text-xs text-slate-400 font-medium mt-3 flex items-center gap-1.5">
               <Phone size={13} className="text-medical-600" />
-              <span>Bookings are accepted via direct phone call. Online forms are not required.</span>
+              <span>Direct bookings via call only. Online forms not required.</span>
             </p>
           </motion.div>
 
@@ -203,15 +217,19 @@ export default function App() {
             <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-intense border-4 border-white bg-white w-full max-w-md mx-auto">
               <img 
                 src="/images/doctor.png" 
-                alt={DOCTOR_CONTENT.name} 
+                alt="Dr. Mukul Thakur" 
                 className="w-full aspect-[4/5] object-cover"
                 loading="eager"
                 decoding="async"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent text-white">
-                <p className="text-white font-bold text-lg">{DOCTOR_CONTENT.name}</p>
-                <p className="text-medical-300 text-xs font-medium uppercase tracking-widest">{DOCTOR_CONTENT.title}</p>
-                <p className="text-[11px] text-slate-300 mt-1 font-medium">Meenaz Hospital, Govandi West</p>
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white">
+                <p className="text-white font-extrabold text-xl leading-tight">Dr. Mukul Thakur</p>
+                <p className="text-medical-300 text-xs font-semibold uppercase tracking-wider mt-0.5">
+                  Consultant Physician & Diabetologist
+                </p>
+                <p className="text-[11px] text-slate-200 mt-1 font-medium">
+                  MBBS, DM Medical Genetics (Imperial College, UK) • Meenaz Hospital
+                </p>
               </div>
             </div>
             
@@ -264,12 +282,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* Services Section - Exactly 8 Core Bento Cards */}
+      {/* Services Section - Core Clinical Specialities by Dr. Mukul Thakur */}
       <section id="services" className="section-padding bg-slate-50/50">
         <div className="compact-container">
           <div className="text-center mb-10">
              <span className="text-medical-600 font-bold uppercase tracking-[0.2em] text-[10px]">Medical Services</span>
-             <h2 className="text-2xl md:text-3xl font-extrabold mt-2 tracking-tight text-slate-900">Core Clinical Specialities</h2>
+             <h2 className="text-2xl md:text-3xl font-extrabold mt-2 tracking-tight text-slate-900">
+               Clinical Specialities by Dr. Mukul Thakur
+             </h2>
              <p className="text-slate-500 text-sm max-w-lg mx-auto mt-2">
                Comprehensive care across Diabetology, Internal Medicine, and Late Night Specialist consultations.
              </p>
@@ -307,7 +327,7 @@ export default function App() {
                     onClick={() => setSelectedService(service)}
                     className="flex items-center gap-2 text-[11px] font-bold text-medical-600 uppercase tracking-wider group-hover:gap-3 transition-all cursor-pointer text-left pt-2 border-t border-slate-50"
                   >
-                    <span>Call for Consultation</span> <ChevronRight size={14} />
+                    <span>Consult Details</span> <ChevronRight size={14} />
                   </button>
                 </motion.div>
               );
@@ -346,14 +366,14 @@ export default function App() {
         </div>
       </section>
 
-      {/* About Section - Compact & Informative */}
+      {/* About Section - About Dr. Mukul Thakur */}
       <section id="about" className="section-padding bg-slate-50/50">
         <div className="compact-container grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
             <div className="rounded-[2.5rem] overflow-hidden shadow-intense border-8 border-white relative aspect-[4/3] bg-slate-100">
                <img 
                  src="/images/clinic.jpg" 
-                 alt="Meenaz Hospital Clinic" 
+                 alt="Dr. Mukul Thakur Clinic at Meenaz Hospital" 
                  className="w-full h-full object-cover" 
                  loading="lazy" 
                />
@@ -367,8 +387,12 @@ export default function App() {
             </div>
           </div>
           <div>
-            <span className="bg-medical-100 text-medical-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">Consultation Expert</span>
-            <h2 className="text-2xl md:text-3xl font-extrabold mb-4 tracking-tight text-slate-900 uppercase">PROFESSIONAL JOURNEY</h2>
+            <span className="bg-medical-100 text-medical-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4 inline-block">
+              Senior Consultant Profile
+            </span>
+            <h2 className="text-2xl md:text-3xl font-extrabold mb-4 tracking-tight text-slate-900 uppercase">
+              ABOUT DR. MUKUL THAKUR
+            </h2>
             <div className="space-y-4 mb-8">
                <p className="text-base text-slate-600 font-medium leading-relaxed">
                  {DOCTOR_CONTENT.summary}
@@ -396,7 +420,7 @@ export default function App() {
                </div>
                <div>
                   <p className="text-2xl font-extrabold text-slate-900 mb-0.5">20:00 – 01:00</p>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Mon, Wed, Sat</p>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Mon, Wed, Sat OPD</p>
                </div>
             </div>
 
@@ -420,10 +444,10 @@ export default function App() {
                Clinic Timings
              </span>
              <h2 className="text-3xl md:text-4xl font-extrabold mt-3 tracking-tight text-slate-900">
-               OPD Operating Hours
+               Dr. Mukul Thakur - OPD Operating Hours
              </h2>
              <p className="text-slate-500 text-sm max-w-md mx-auto mt-2">
-               Dr. Mukul Thakur's official consultation hours at Meenaz Hospital, Govandi West.
+               Official consultation hours at Meenaz Hospital, Govandi West.
              </p>
           </div>
 
@@ -433,7 +457,7 @@ export default function App() {
               <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
                 <div className="flex items-center gap-2">
                   <Clock size={18} className="text-medical-600" />
-                  <span className="font-bold text-slate-900 text-sm">Weekly OPD Hours</span>
+                  <span className="font-bold text-slate-900 text-sm">Dr. Thakur's Weekly Schedule</span>
                 </div>
                 <span className="text-[11px] font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full">
                   Mon, Wed, Sat Open
@@ -486,7 +510,7 @@ export default function App() {
                     href={DOCTOR_CONTENT.contact.callUrl}
                     className="btn-primary !py-2.5 !px-4 text-xs w-full flex items-center justify-center gap-2"
                   >
-                    <PhoneCall size={14} /> Call to Book Appointment
+                    <PhoneCall size={14} /> Call Dr. Thakur to Book
                   </a>
                   <a 
                     href={DOCTOR_CONTENT.contact.mapsUrl}
@@ -580,7 +604,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Booking by Call Section - Replaced Form with Direct Call to Book System */}
+      {/* Booking by Call Section */}
       <section id="appointment" className="section-padding bg-slate-50/50">
         <div className="compact-container">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
@@ -591,7 +615,7 @@ export default function App() {
                 Direct Appointment Booking
               </span>
               <h2 className="text-3xl md:text-5xl font-extrabold mt-3 mb-6 tracking-tight text-slate-900 uppercase">
-                BOOK CONSULTATION <br /> BY CALL ONLY
+                CONSULT DR. MUKUL THAKUR <br /> BY CALL ONLY
               </h2>
               <p className="text-sm md:text-base text-slate-500 font-medium mb-8 leading-relaxed max-w-sm">
                 Online booking is not available. To schedule an appointment or inquire about OPD slots, please call our clinic directly or send a message on WhatsApp.
@@ -632,7 +656,7 @@ export default function App() {
                     Clinic Desk
                   </span>
                   <h3 className="text-2xl font-extrabold text-slate-900 mt-2">
-                    Call for Immediate Booking
+                    Call Dr. Mukul Thakur's Clinic
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-500 mt-1">
                     Tap the button below to dial our clinic helpline directly.
@@ -712,7 +736,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Service Detail Modal - Converted to Call to Book */}
+      {/* Service Detail Modal */}
       <AnimatePresence>
         {selectedService && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
@@ -777,19 +801,26 @@ export default function App() {
       <footer className="pt-20 pb-10 bg-[#0F172A] text-white overflow-hidden">
         <div className="compact-container">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div className="lg:col-span-1 space-y-6">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-medical-500 rounded-lg flex items-center justify-center text-white shadow-lg">
-                  <Plus size={18} />
+            
+            {/* Col 1: Doctor Identity */}
+            <div className="lg:col-span-1 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-medical-500 rounded-xl flex items-center justify-center text-white shadow-lg flex-shrink-0">
+                  <Stethoscope size={20} />
                 </div>
-                <span className="font-display font-bold text-xl tracking-tight uppercase">
-                  THAKUR <span className="text-medical-400 font-medium text-sm">Clinics</span>
-                </span>
+                <div>
+                  <span className="font-display font-extrabold text-xl tracking-tight block text-white">
+                    Dr. Mukul Thakur
+                  </span>
+                  <span className="text-xs text-medical-400 font-semibold block">
+                    Consultant Physician & Diabetologist
+                  </span>
+                </div>
               </div>
-              <p className="text-slate-400 text-[14px] font-medium leading-relaxed max-w-xs">
-                Dr. Mukul Thakur provides international standards of internal medicine and diabetes care with over 30 years of clinical expertise.
+              <p className="text-slate-400 text-xs leading-relaxed">
+                Over 30 years of clinical expertise. UK Qualified (MBBS, DM Medical Genetics - Imperial College, UK), Maharashtra Medical Council Reg. No. 2228.
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 pt-1">
                  {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
                    <a key={i} href="#" className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center bg-white/5 hover:bg-medical-500 hover:text-white transition-all">
                       <Icon size={16} />
@@ -802,8 +833,8 @@ export default function App() {
               <h4 className="text-[11px] font-bold mb-6 text-medical-400 uppercase tracking-[0.2em]">Quick Links</h4>
               <ul className="space-y-4 text-[13px] font-medium text-slate-400">
                  <li><a href="#home" className="hover:text-white transition-colors">Home Page</a></li>
+                 <li><a href="#about" className="hover:text-white transition-colors">About Dr. Mukul Thakur</a></li>
                  <li><a href="#services" className="hover:text-white transition-colors">Medical Services</a></li>
-                 <li><a href="#about" className="hover:text-white transition-colors">Dr. Thakur's Bio</a></li>
                  <li><a href="#timings" className="hover:text-white transition-colors">OPD Operating Hours</a></li>
                  <li><a href="#gallery" className="hover:text-white transition-colors">Clinic Gallery</a></li>
                  <li><a href="#appointment" className="hover:text-white transition-colors">Book via Call</a></li>
@@ -843,19 +874,19 @@ export default function App() {
                 Helpline: <strong className="text-white block text-sm mt-0.5">{DOCTOR_CONTENT.contact.phone}</strong>
               </p>
               <p className="text-slate-400 text-xs">
-                Govandi West, Lotus Colony, Shivaji Nagar, Mumbai 400043
+                Meenaz Hospital, Near Khalid Bakery, Lotus Colony, Shivaji Nagar, Govandi West, Mumbai 400043
               </p>
               <a 
                 href={DOCTOR_CONTENT.contact.callUrl}
                 className="btn-primary !py-2 !px-4 text-xs w-full text-center inline-flex items-center justify-center gap-1.5"
               >
-                <PhoneCall size={13} /> Call to Book Appointment
+                <PhoneCall size={13} /> Call Dr. Thakur Directly
               </a>
             </div>
           </div>
           
           <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
-             <p className="text-slate-500 font-bold text-[9px] uppercase tracking-[0.2em]">
+             <p className="text-slate-500 font-bold text-[10px] uppercase tracking-[0.2em]">
                © {new Date().getFullYear()} DR. MUKUL THAKUR — CONSULTANT PHYSICIAN & DIABETOLOGIST
              </p>
              <div className="flex gap-8 text-slate-500 font-bold text-[9px] uppercase tracking-[0.2em]">
