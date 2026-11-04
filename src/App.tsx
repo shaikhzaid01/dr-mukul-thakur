@@ -1,6 +1,6 @@
 /**
- * @license
- * SPDX-License-Identifier: Apache-2.0
+ * Dr. Mukul Thakur - Official Medical Website
+ * Consultant Physician & Diabetologist | Meenaz Hospital, Govandi West
  */
 
 import { useState, useEffect } from 'react';
@@ -10,7 +10,6 @@ import {
   MapPin, 
   Clock, 
   Phone, 
-  Mail, 
   Plus,
   Star,
   Thermometer,
@@ -21,21 +20,33 @@ import {
   ShieldCheck,
   ChevronRight,
   Activity,
-  Users,
   Award,
   Facebook,
   Twitter,
   Instagram,
   Linkedin,
   CheckCircle2,
-  Calendar,
   MessageSquare,
   X,
-  ExternalLink
+  ExternalLink,
+  ShieldAlert,
+  Navigation,
+  PhoneCall
 } from 'lucide-react';
-import { DOCTOR_CONTENT } from './content';
+import { DOCTOR_CONTENT, ServiceItem } from './content';
 
-const serviceIcons: any = { Thermometer, HeartPulse, Moon, Dna };
+const serviceIcons: Record<string, any> = { 
+  Thermometer, 
+  HeartPulse, 
+  Moon, 
+  Dna, 
+  Activity, 
+  ShieldAlert, 
+  Stethoscope, 
+  Clock, 
+  ShieldCheck, 
+  Award
+};
 
 const Nav = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -48,32 +59,38 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 backdrop-blur-md border-b border-slate-100 py-3 shadow-sm' : 'bg-transparent py-5'}`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md border-b border-slate-100 py-3 shadow-sm' : 'bg-transparent py-5'}`}>
       <div className="compact-container flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <a href="#home" className="flex items-center gap-2">
           <div className="w-8 h-8 bg-medical-600 rounded-lg flex items-center justify-center text-white shadow-sm">
             <Plus size={18} />
           </div>
           <span className="font-display font-bold text-lg tracking-tight text-slate-900">
             {DOCTOR_CONTENT.name.split(' ').slice(1).join(' ')} <span className="text-medical-600 font-medium">Clinics</span>
           </span>
-        </div>
+        </a>
         
-        <div className="hidden md:flex items-center gap-8 font-semibold text-[13px] text-slate-600">
+        <div className="hidden md:flex items-center gap-7 font-semibold text-[13px] text-slate-600">
           <a href="#home" className="hover:text-medical-600 transition-colors">Home</a>
           <a href="#services" className="hover:text-medical-600 transition-colors">Services</a>
           <a href="#about" className="hover:text-medical-600 transition-colors">About</a>
+          <a href="#timings" className="hover:text-medical-600 transition-colors">OPD Hours</a>
           <a href="#gallery" className="hover:text-medical-600 transition-colors">Gallery</a>
           <a href="#faq" className="hover:text-medical-600 transition-colors">FAQ</a>
         </div>
 
-        <div className="flex items-center gap-4">
-          <a href="#appointment" className="hidden sm:flex btn-primary !px-5 !py-2 !text-xs rounded-lg">
-            Book Now
+        <div className="flex items-center gap-3">
+          <a 
+            href={DOCTOR_CONTENT.contact.callUrl} 
+            className="btn-primary !px-4 !py-2 !text-xs rounded-lg flex items-center gap-1.5 shadow-sm"
+          >
+            <PhoneCall size={14} />
+            <span>Call to Book: {DOCTOR_CONTENT.contact.phone}</span>
           </a>
           <button 
             className="md:hidden p-2 text-slate-600"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X size={24} /> : <Activity size={24} />}
           </button>
@@ -91,10 +108,18 @@ const Nav = () => {
           >
             <a href="#home" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">Home</a>
             <a href="#services" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">Services</a>
-            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">About</a>
-            <a href="#gallery" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">Gallery</a>
-            <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2">FAQ</a>
-            <a href="#appointment" onClick={() => setMobileMenuOpen(false)} className="btn-primary w-full mt-2">Book Appointment</a>
+            <a href="#about" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">About Dr. Thakur</a>
+            <a href="#timings" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">OPD Hours</a>
+            <a href="#gallery" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">Clinic Gallery</a>
+            <a href="#faq" onClick={() => setMobileMenuOpen(false)} className="font-bold text-slate-900 py-2 border-b border-slate-50">FAQ</a>
+            <div className="pt-2 flex flex-col gap-2">
+              <a href={DOCTOR_CONTENT.contact.callUrl} className="btn-primary w-full text-center text-xs flex items-center justify-center gap-1.5">
+                <PhoneCall size={15} /> Call to Book: {DOCTOR_CONTENT.contact.phone}
+              </a>
+              <a href={DOCTOR_CONTENT.contact.whatsappUrl} target="_blank" rel="noreferrer" className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-xl text-xs text-center flex items-center justify-center gap-1.5">
+                <MessageSquare size={15} /> WhatsApp Doctor
+              </a>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -103,7 +128,8 @@ const Nav = () => {
 };
 
 export default function App() {
-  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [activeFaq, setActiveFaq] = useState<number | null>(0);
+  const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
 
   return (
     <div className="min-h-screen selection:bg-medical-500 selection:text-white">
@@ -120,21 +146,37 @@ export default function App() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 bg-medical-50 border border-medical-100 px-3 py-1 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-medical-50 border border-medical-100 px-3 py-1 rounded-full mb-6 flex-wrap">
               <span className="w-1.5 h-1.5 bg-medical-500 rounded-full animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-medical-700">30+ Years Professional Experience</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-medical-700">30+ Years Experience</span>
+              <span className="text-slate-300">•</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700">Mon, Wed, Sat (20:00 – 01:00)</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-extrabold leading-[1.1] mb-6 tracking-tight text-slate-900">
+            
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.1] mb-6 tracking-tight text-slate-900">
               {DOCTOR_CONTENT.heroHeadline.split(' ').slice(0, -1).join(' ')} <br />
               <span className="text-medical-600">{DOCTOR_CONTENT.heroHeadline.split(' ').slice(-1)}</span>
             </h1>
+            
             <p className="text-base md:text-lg text-slate-500 font-medium mb-8 max-w-lg leading-relaxed">
               {DOCTOR_CONTENT.heroSubheadline}
             </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="#appointment" className="btn-primary">
-                Book Consultation <Calendar size={18} />
+            
+            <div className="flex flex-wrap items-center gap-4">
+              <a href={DOCTOR_CONTENT.contact.callUrl} className="btn-primary">
+                Call to Book Appointment <PhoneCall size={18} />
               </a>
+              
+              <a 
+                href={DOCTOR_CONTENT.contact.whatsappUrl} 
+                target="_blank" 
+                rel="noreferrer"
+                className="btn-secondary !px-5"
+              >
+                <MessageSquare size={16} className="text-emerald-600" />
+                <span>WhatsApp Booking</span>
+              </a>
+
               <div className="flex items-center gap-3 bg-white px-4 py-2 rounded-xl border border-slate-100 shadow-sm">
                  <div className="w-8 h-8 bg-medical-50 text-medical-600 rounded-lg flex items-center justify-center">
                     <ShieldCheck size={18} />
@@ -145,6 +187,11 @@ export default function App() {
                  </div>
               </div>
             </div>
+
+            <p className="text-xs text-slate-400 font-medium mt-3 flex items-center gap-1.5">
+              <Phone size={13} className="text-medical-600" />
+              <span>Bookings are accepted via direct phone call. Online forms are not required.</span>
+            </p>
           </motion.div>
 
           <motion.div
@@ -161,9 +208,10 @@ export default function App() {
                 loading="eager"
                 decoding="async"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent">
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/70 via-black/30 to-transparent text-white">
                 <p className="text-white font-bold text-lg">{DOCTOR_CONTENT.name}</p>
                 <p className="text-medical-300 text-xs font-medium uppercase tracking-widest">{DOCTOR_CONTENT.title}</p>
+                <p className="text-[11px] text-slate-300 mt-1 font-medium">Meenaz Hospital, Govandi West</p>
               </div>
             </div>
             
@@ -187,45 +235,80 @@ export default function App() {
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
               className="absolute -right-4 bottom-1/4 z-20 float-widget"
             >
-              <div className="w-10 h-10 bg-sky-500 text-white rounded-lg flex items-center justify-center shadow-md">
-                <Users size={20} />
+              <div className="w-10 h-10 bg-emerald-600 text-white rounded-lg flex items-center justify-center shadow-md">
+                <Moon size={20} />
               </div>
               <div>
-                <p className="text-lg font-bold leading-none">6K+</p>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-tight">Patients</p>
+                <p className="text-sm font-bold leading-none text-slate-900">Night OPD</p>
+                <p className="text-[9px] font-bold text-emerald-600 uppercase tracking-tight mt-0.5">20:00 – 01:00</p>
               </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Services Section - Compact Bento */}
+      {/* Catchment Areas Marquee Strip */}
+      <div className="bg-slate-50 border-y border-slate-100 py-3">
+        <div className="compact-container flex flex-wrap items-center justify-center md:justify-between gap-3 text-xs text-slate-500">
+          <div className="flex items-center gap-2 font-bold text-slate-700">
+            <MapPin size={14} className="text-medical-600" />
+            <span>Govandi Catchment Areas:</span>
+          </div>
+          <div className="flex flex-wrap gap-2 justify-center">
+            {DOCTOR_CONTENT.clinic.catchmentAreas.map((area, idx) => (
+              <span key={idx} className="bg-white border border-slate-200 text-slate-700 px-2.5 py-0.5 rounded-full font-medium text-[11px]">
+                {area}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Services Section - Exactly 8 Core Bento Cards */}
       <section id="services" className="section-padding bg-slate-50/50">
         <div className="compact-container">
-          <div className="text-center mb-8">
+          <div className="text-center mb-10">
              <span className="text-medical-600 font-bold uppercase tracking-[0.2em] text-[10px]">Medical Services</span>
-             <h2 className="text-2xl md:text-3xl font-extrabold mt-2 tracking-tight text-slate-900">Expert Healthcare Services</h2>
+             <h2 className="text-2xl md:text-3xl font-extrabold mt-2 tracking-tight text-slate-900">Core Clinical Specialities</h2>
+             <p className="text-slate-500 text-sm max-w-lg mx-auto mt-2">
+               Comprehensive care across Diabetology, Internal Medicine, and Late Night Specialist consultations.
+             </p>
           </div>
 
+          {/* 8 Bento Cards Grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {DOCTOR_CONTENT.services.map((service, i) => {
-              const Icon = serviceIcons[service.icon];
+              const Icon = serviceIcons[service.icon] || Stethoscope;
               return (
                 <motion.div
-                  key={i}
+                  key={service.id || i}
                   whileHover={{ y: -5 }}
-                  className="bento-card group hover:border-medical-500/30"
+                  className="bento-card group hover:border-medical-500/30 flex flex-col justify-between"
                 >
-                  <div className="w-12 h-12 bg-medical-50 text-medical-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-medical-600 group-hover:text-white transition-all">
-                    <Icon size={24} />
+                  <div>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 bg-medical-50 text-medical-600 rounded-xl flex items-center justify-center group-hover:bg-medical-600 group-hover:text-white transition-all">
+                        <Icon size={24} />
+                      </div>
+                      {service.badge && (
+                        <span className="text-[9px] font-bold uppercase tracking-wider bg-medical-100 text-medical-800 px-2 py-0.5 rounded-md">
+                          {service.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className="text-base font-bold mb-2 tracking-tight text-slate-900">{service.title}</h3>
+                    <p className="text-xs text-slate-500 font-medium leading-relaxed mb-4">
+                      {service.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-bold mb-3 tracking-tight">{service.title}</h3>
-                  <p className="text-sm text-slate-500 font-medium leading-relaxed mb-5">
-                    {service.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-[11px] font-bold text-medical-600 uppercase tracking-wider group-hover:gap-3 transition-all cursor-pointer">
-                    Learn More <ChevronRight size={14} />
-                  </div>
+
+                  <button 
+                    onClick={() => setSelectedService(service)}
+                    className="flex items-center gap-2 text-[11px] font-bold text-medical-600 uppercase tracking-wider group-hover:gap-3 transition-all cursor-pointer text-left pt-2 border-t border-slate-50"
+                  >
+                    <span>Call for Consultation</span> <ChevronRight size={14} />
+                  </button>
                 </motion.div>
               );
             })}
@@ -233,7 +316,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Gallery Section - NEW */}
+      {/* Gallery Section - Clinic Tour */}
       <section id="gallery" className="section-padding bg-white">
         <div className="compact-container">
           <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
@@ -242,7 +325,7 @@ export default function App() {
               <h2 className="text-3xl md:text-4xl font-extrabold mt-3 tracking-tight text-slate-900">Modern Medical Facilities</h2>
             </div>
             <p className="text-sm text-slate-500 max-w-xs font-medium md:mb-1">
-              Equipped with modern diagnostic tools and a sterile environment for patient safety.
+              Equipped with modern diagnostic tools, pharmacy, and a sterile environment for patient safety.
             </p>
           </div>
 
@@ -267,15 +350,20 @@ export default function App() {
       <section id="about" className="section-padding bg-slate-50/50">
         <div className="compact-container grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
-            <div className="rounded-[2.5rem] overflow-hidden shadow-intense border-8 border-white relative aspect-[4/3]">
-               <img src={DOCTOR_CONTENT.gallery[5]} alt="Clinic" className="w-full h-full object-cover" loading="lazy" />
+            <div className="rounded-[2.5rem] overflow-hidden shadow-intense border-8 border-white relative aspect-[4/3] bg-slate-100">
+               <img 
+                 src="/images/clinic.jpg" 
+                 alt="Meenaz Hospital Clinic" 
+                 className="w-full h-full object-cover" 
+                 loading="lazy" 
+               />
             </div>
             <div className="absolute -bottom-6 -right-6 glass-card p-6 shadow-xl z-10 w-48 border-medical-50">
                <div className="flex items-center gap-3 mb-2">
                   <Activity size={20} className="text-medical-600" />
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Success Rate</span>
+                  <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400">Experience</span>
                </div>
-               <p className="text-3xl font-extrabold text-slate-900">99.2%</p>
+               <p className="text-3xl font-extrabold text-slate-900">30+ Yrs</p>
             </div>
           </div>
           <div>
@@ -287,36 +375,136 @@ export default function App() {
                </p>
                <div className="grid gap-3">
                   <div className="flex gap-3 items-center p-3 bg-white rounded-xl border border-slate-100">
-                    <CheckCircle2 size={20} className="text-medical-500" />
+                    <CheckCircle2 size={20} className="text-medical-500 flex-shrink-0" />
                     <p className="text-sm font-bold text-slate-700">{DOCTOR_CONTENT.mbbs}</p>
                   </div>
                   <div className="flex gap-3 items-center p-3 bg-white rounded-xl border border-slate-100">
-                    <CheckCircle2 size={20} className="text-medical-500" />
+                    <CheckCircle2 size={20} className="text-medical-500 flex-shrink-0" />
                     <p className="text-sm font-bold text-slate-700">{DOCTOR_CONTENT.dm}</p>
+                  </div>
+                  <div className="flex gap-3 items-center p-3 bg-white rounded-xl border border-slate-100">
+                    <CheckCircle2 size={20} className="text-medical-500 flex-shrink-0" />
+                    <p className="text-sm font-bold text-slate-700">Maharashtra Medical Council (Reg. No. 2228)</p>
                   </div>
                </div>
             </div>
 
             <div className="grid grid-cols-2 gap-6 mb-8 border-t border-slate-100 pt-8">
                <div>
-                  <p className="text-2xl font-extrabold text-slate-900 mb-0.5">12K+</p>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Cases Handled</p>
+                  <p className="text-2xl font-extrabold text-slate-900 mb-0.5">30+ Yrs</p>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Clinical Experience</p>
                </div>
                <div>
-                  <p className="text-2xl font-extrabold text-slate-900 mb-0.5">20+</p>
-                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Health Partners</p>
+                  <p className="text-2xl font-extrabold text-slate-900 mb-0.5">20:00 – 01:00</p>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Mon, Wed, Sat</p>
                </div>
             </div>
 
-            <button className="btn-secondary !py-2.5 !px-8 text-sm">
-              Read More History <ArrowRight size={16} />
-            </button>
+            <div className="flex gap-3">
+              <a href={DOCTOR_CONTENT.contact.callUrl} className="btn-primary !py-2.5 !px-8 text-sm">
+                Call to Book Appointment <PhoneCall size={16} />
+              </a>
+              <a href={DOCTOR_CONTENT.contact.whatsappUrl} target="_blank" rel="noreferrer" className="btn-secondary !py-2.5 !px-6 text-sm">
+                <MessageSquare size={15} className="text-emerald-600" /> WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Dedicated OPD Schedule Section */}
+      <section id="timings" className="section-padding bg-white border-t border-slate-100">
+        <div className="compact-container">
+          <div className="text-center mb-8">
+             <span className="text-emerald-700 font-bold uppercase tracking-[0.2em] text-[10px] bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+               Clinic Timings
+             </span>
+             <h2 className="text-3xl md:text-4xl font-extrabold mt-3 tracking-tight text-slate-900">
+               OPD Operating Hours
+             </h2>
+             <p className="text-slate-500 text-sm max-w-md mx-auto mt-2">
+               Dr. Mukul Thakur's official consultation hours at Meenaz Hospital, Govandi West.
+             </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-8 items-center max-w-4xl mx-auto">
+            {/* The 7 Days Schedule Table */}
+            <div className="lg:col-span-7 bg-slate-50 p-6 rounded-3xl border border-slate-200 space-y-2.5 shadow-sm">
+              <div className="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
+                <div className="flex items-center gap-2">
+                  <Clock size={18} className="text-medical-600" />
+                  <span className="font-bold text-slate-900 text-sm">Weekly OPD Hours</span>
+                </div>
+                <span className="text-[11px] font-bold bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full">
+                  Mon, Wed, Sat Open
+                </span>
+              </div>
+
+              {DOCTOR_CONTENT.schedule.map((slot, index) => {
+                const isClosed = !slot.isOpen;
+                return (
+                  <div 
+                    key={index}
+                    className={`flex items-center justify-between p-3.5 rounded-xl border text-xs transition-colors ${
+                      isClosed ? 'bg-rose-50/40 border-rose-100 text-rose-700' : 'bg-white border-slate-200 text-slate-900 font-bold'
+                    }`}
+                  >
+                    <span className="font-bold text-slate-900 w-28 text-sm">{slot.day}</span>
+                    <span className={`font-semibold ${isClosed ? 'text-rose-600' : 'text-slate-800'}`}>
+                      {slot.time}
+                    </span>
+                    <span className={`text-[10px] font-bold px-2.5 py-0.5 rounded-full ${
+                      isClosed ? 'bg-rose-100 text-rose-700' : 'bg-emerald-100 text-emerald-700'
+                    }`}>
+                      {slot.status}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Hospital Card */}
+            <div className="lg:col-span-5 space-y-4">
+              <div className="bento-card bg-medical-50/50 border-medical-100 p-6">
+                <div className="w-10 h-10 rounded-xl bg-medical-600 text-white flex items-center justify-center mb-3">
+                  <MapPin size={20} />
+                </div>
+                <h4 className="font-bold text-base text-slate-900 mb-1">Meenaz Hospital</h4>
+                <p className="text-xs text-slate-600 leading-relaxed mb-4">
+                  Near Khalid Bakery, Lotus Colony, Shivaji Nagar, Govandi West, Mumbai, Maharashtra – 400043
+                </p>
+                <div className="space-y-2 text-xs">
+                  <p className="flex items-center gap-1.5 font-bold text-slate-800">
+                    <Phone size={13} className="text-medical-600" /> {DOCTOR_CONTENT.contact.phone}
+                  </p>
+                  <p className="text-slate-500">
+                    Consultation Fee: {DOCTOR_CONTENT.clinic.consultationFee} • 24/7 Facility
+                  </p>
+                </div>
+                <div className="pt-2 flex flex-col gap-2">
+                  <a 
+                    href={DOCTOR_CONTENT.contact.callUrl}
+                    className="btn-primary !py-2.5 !px-4 text-xs w-full flex items-center justify-center gap-2"
+                  >
+                    <PhoneCall size={14} /> Call to Book Appointment
+                  </a>
+                  <a 
+                    href={DOCTOR_CONTENT.contact.mapsUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="btn-secondary !py-2 !px-4 text-xs w-full flex items-center justify-center gap-1.5 text-slate-600"
+                  >
+                    <Navigation size={13} className="text-medical-600" /> Open in Google Maps
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials - Clean Cards */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-slate-50/50">
         <div className="compact-container">
           <div className="text-center mb-8">
              <span className="text-medical-600 font-bold uppercase tracking-[0.2em] text-[10px]">Patient Reviews</span>
@@ -327,11 +515,11 @@ export default function App() {
             {DOCTOR_CONTENT.testimonials.map((t, i) => (
               <motion.div 
                 key={i}
-                className="bg-slate-50 p-8 rounded-2xl border border-slate-100 flex flex-col justify-between"
+                className="bg-white p-8 rounded-2xl border border-slate-100 flex flex-col justify-between shadow-sm"
               >
                 <div>
                    <div className="flex gap-0.5 mb-6">
-                      {[...Array(5)].map((_, j) => <Star key={j} size={14} fill="#14b8a6" className="text-medical-500" />)}
+                      {[...Array(t.rating)].map((_, j) => <Star key={j} size={14} fill="#14b8a6" className="text-medical-500" />)}
                    </div>
                    <p className="text-[15px] text-slate-600 font-medium leading-relaxed mb-8 italic">
                      "{t.text}"
@@ -353,7 +541,7 @@ export default function App() {
       </section>
 
       {/* FAQ Section - Clean Professional Accordion */}
-      <section id="faq" className="section-padding bg-slate-50">
+      <section id="faq" className="section-padding bg-white">
         <div className="compact-container max-w-3xl">
           <div className="text-center mb-8">
              <span className="text-medical-600 font-bold uppercase tracking-[0.2em] text-[10px]">Help Center</span>
@@ -392,88 +580,198 @@ export default function App() {
         </div>
       </section>
 
-      {/* Contact Section - Proper Appointment Form */}
-      <section id="appointment" className="section-padding bg-white">
+      {/* Booking by Call Section - Replaced Form with Direct Call to Book System */}
+      <section id="appointment" className="section-padding bg-slate-50/50">
         <div className="compact-container">
-          <div className="grid lg:grid-cols-12 gap-12 items-start">
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            
+            {/* Left Info Column */}
             <div className="lg:col-span-5">
-              <span className="text-medical-600 font-bold uppercase tracking-[0.2em] text-[10px]">Get In Touch</span>
-              <h2 className="text-3xl md:text-5xl font-extrabold mt-3 mb-6 tracking-tight text-slate-900 uppercase">REQUEST AN <br /> APPOINTMENT</h2>
-              <p className="text-sm md:text-base text-slate-500 font-medium mb-10 leading-relaxed max-w-sm">
-                Join 6,700+ satisfied families. Fill out the form and our team will get back to you within 24 hours.
+              <span className="text-medical-600 font-bold uppercase tracking-[0.2em] text-[10px] bg-medical-50 px-3 py-1 rounded-full border border-medical-100">
+                Direct Appointment Booking
+              </span>
+              <h2 className="text-3xl md:text-5xl font-extrabold mt-3 mb-6 tracking-tight text-slate-900 uppercase">
+                BOOK CONSULTATION <br /> BY CALL ONLY
+              </h2>
+              <p className="text-sm md:text-base text-slate-500 font-medium mb-8 leading-relaxed max-w-sm">
+                Online booking is not available. To schedule an appointment or inquire about OPD slots, please call our clinic directly or send a message on WhatsApp.
               </p>
               
-              <div className="grid gap-4">
-                 <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-medical-600 shadow-sm border border-slate-50">
-                       <Phone size={18} />
-                    </div>
+              <div className="grid gap-3">
+                 <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-start gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-500 mt-0.5 flex-shrink-0" />
                     <div>
-                       <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Office Hotline</p>
-                       <p className="text-lg font-bold tracking-tight">{DOCTOR_CONTENT.contact.phone}</p>
+                      <p className="text-xs font-bold text-slate-900">Direct Doctor Staff Coordination</p>
+                      <p className="text-[11px] text-slate-500">Confirm your exact appointment time without waiting.</p>
                     </div>
                  </div>
-                 <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-medical-600 shadow-sm border border-slate-50">
-                       <Mail size={18} />
-                    </div>
+
+                 <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-start gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-500 mt-0.5 flex-shrink-0" />
                     <div>
-                       <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Support Email</p>
-                       <p className="text-lg font-bold tracking-tight">{DOCTOR_CONTENT.contact.email}</p>
+                      <p className="text-xs font-bold text-slate-900">Walk-ins Welcome During OPD</p>
+                      <p className="text-[11px] text-slate-500">Mon, Wed, Sat 20:00 to 01:00 at Meenaz Hospital.</p>
                     </div>
                  </div>
-                 <div className="flex items-center gap-4 p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                    <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-medical-600 shadow-sm border border-slate-50">
-                       <MapPin size={18} />
-                    </div>
+
+                 <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm flex items-start gap-3">
+                    <CheckCircle2 size={18} className="text-emerald-500 mt-0.5 flex-shrink-0" />
                     <div>
-                       <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Main Clinic</p>
-                       <p className="text-sm font-bold tracking-tight">Shivaji Nagar, Govandi, Mumbai</p>
+                      <p className="text-xs font-bold text-slate-900">Consultation Fee</p>
+                      <p className="text-[11px] text-slate-500">₹700 for comprehensive clinical examination & report review.</p>
                     </div>
                  </div>
               </div>
             </div>
 
+            {/* Right Action Box - High Impact Direct Call & WhatsApp Booking */}
             <div className="lg:col-span-7">
-              <div className="bg-[#F8FAFC] p-8 md:p-10 rounded-3xl border border-slate-100 shadow-sm">
-                <form className="grid sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Full Name</label>
-                    <input type="text" className="input-field" placeholder="John Doe" />
+              <div className="bg-white p-8 md:p-10 rounded-3xl border border-slate-100 shadow-sm space-y-6">
+                <div>
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
+                    Clinic Desk
+                  </span>
+                  <h3 className="text-2xl font-extrabold text-slate-900 mt-2">
+                    Call for Immediate Booking
+                  </h3>
+                  <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                    Tap the button below to dial our clinic helpline directly.
+                  </p>
+                </div>
+
+                {/* Primary Call Box */}
+                <div className="p-6 rounded-2xl bg-medical-50/70 border border-medical-100 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="w-14 h-14 bg-medical-600 rounded-2xl flex items-center justify-center text-white shadow-md shadow-medical-500/20 flex-shrink-0">
+                      <PhoneCall size={28} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Helpline Number</p>
+                      <a 
+                        href={DOCTOR_CONTENT.contact.callUrl}
+                        className="text-2xl sm:text-3xl font-extrabold text-slate-900 hover:text-medical-600 transition-colors tracking-tight"
+                      >
+                        {DOCTOR_CONTENT.contact.phone}
+                      </a>
+                    </div>
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Phone Number</label>
-                    <input type="tel" className="input-field" placeholder="+91 98XXX XXXXX" />
-                  </div>
-                  <div className="space-y-2 sm:col-span-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Email Address</label>
-                    <input type="email" className="input-field" placeholder="john@example.com" />
-                  </div>
-                  <div className="space-y-2 sm:col-span-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">Preferred Department</label>
-                    <select className="input-field appearance-none cursor-pointer">
-                      <option>General Consultation</option>
-                      {DOCTOR_CONTENT.services.map(s => <option key={s.id}>{s.title}</option>)}
-                    </select>
-                  </div>
-                  <div className="space-y-2 sm:col-span-2">
-                    <label className="text-[10px] font-bold text-slate-500 uppercase tracking-widest px-1">How can we help?</label>
-                    <textarea className="input-field min-h-[100px] py-4" placeholder="Briefly describe your health concern..."></textarea>
-                  </div>
-                  <div className="sm:col-span-2">
-                    <button type="button" className="btn-primary w-full !py-4 text-base font-bold rounded-xl mt-2 group">
-                      Confirm Appointment Request <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                    </button>
-                    <p className="text-[10px] text-center text-slate-400 mt-4 uppercase tracking-widest font-bold">
-                      Your privacy is protected. We follow all medical data standards.
-                    </p>
-                  </div>
-                </form>
+
+                  <a 
+                    href={DOCTOR_CONTENT.contact.callUrl} 
+                    className="btn-primary w-full !py-4 text-base font-bold rounded-xl flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                  >
+                    <PhoneCall size={20} />
+                    <span>Call Now to Book (+91 76660 55602)</span>
+                  </a>
+                </div>
+
+                {/* Secondary WhatsApp & Location Box */}
+                <div className="grid sm:grid-cols-2 gap-4 pt-2">
+                  <a 
+                    href={DOCTOR_CONTENT.contact.whatsappUrl} 
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="p-4 rounded-2xl bg-emerald-50/60 border border-emerald-100 hover:border-emerald-300 transition-all flex items-center gap-3 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-sm flex-shrink-0">
+                      <MessageSquare size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-emerald-800 uppercase tracking-wider">WhatsApp Desk</p>
+                      <p className="text-xs font-extrabold text-slate-900 group-hover:text-emerald-700 transition-colors">
+                        Message to Inquire
+                      </p>
+                    </div>
+                  </a>
+
+                  <a 
+                    href={DOCTOR_CONTENT.contact.mapsUrl}
+                    target="_blank" 
+                    rel="noreferrer"
+                    className="p-4 rounded-2xl bg-slate-50 border border-slate-100 hover:border-slate-300 transition-all flex items-center gap-3 group"
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-slate-200 text-slate-700 flex items-center justify-center flex-shrink-0">
+                      <MapPin size={18} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Clinic Location</p>
+                      <p className="text-xs font-extrabold text-slate-900 group-hover:text-medical-600 transition-colors">
+                        Meenaz Hospital, Govandi
+                      </p>
+                    </div>
+                  </a>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-50 text-xs text-slate-600 border border-slate-100 leading-relaxed">
+                  <strong>Consultation Days:</strong> Monday, Wednesday & Saturday (20:00 – 01:00). Tuesday, Thursday, Friday & Sunday are Closed.
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
+
+      {/* Service Detail Modal - Converted to Call to Book */}
+      <AnimatePresence>
+        {selectedService && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative border border-slate-100"
+            >
+              <button 
+                onClick={() => setSelectedService(null)}
+                className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="w-12 h-12 rounded-2xl bg-medical-50 text-medical-600 flex items-center justify-center mb-4">
+                <Stethoscope size={24} />
+              </div>
+
+              <span className="text-[10px] font-bold uppercase tracking-wider text-medical-600 bg-medical-50 px-2.5 py-1 rounded-full">
+                Service Details
+              </span>
+
+              <h3 className="text-xl font-extrabold text-slate-900 mt-2 mb-3">
+                {selectedService.title}
+              </h3>
+
+              <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                {selectedService.description}
+              </p>
+
+              <div className="p-4 rounded-xl bg-slate-50 border border-slate-100 space-y-2 text-xs text-slate-600 mb-6">
+                <p><strong>Doctor:</strong> Dr. Mukul Thakur (30+ Years Experience)</p>
+                <p><strong>Hospital:</strong> Meenaz Hospital, Near Khalid Bakery, Govandi West</p>
+                <p><strong>OPD Hours:</strong> Mon, Wed, Sat 20:00 – 01:00 (Tue, Thu, Fri, Sun Closed)</p>
+                <p><strong>Booking Mode:</strong> By Direct Phone Call Only</p>
+              </div>
+
+              <div className="flex gap-3">
+                <a 
+                  href={DOCTOR_CONTENT.contact.callUrl}
+                  className="btn-primary flex-1 !py-3 text-xs font-bold text-center justify-center flex items-center gap-1.5"
+                >
+                  <PhoneCall size={16} /> Call to Book Appointment
+                </a>
+                <a 
+                  href={`https://wa.me/917666055602?text=${encodeURIComponent(`Hello Dr. Mukul Thakur, I want to inquire about: ${selectedService.title}`)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-secondary !py-3 text-xs font-bold px-4 flex items-center gap-1.5 text-emerald-700"
+                >
+                  <MessageSquare size={15} /> WhatsApp
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Footer - Professional & Structured */}
       <footer className="pt-20 pb-10 bg-[#0F172A] text-white overflow-hidden">
@@ -489,7 +787,7 @@ export default function App() {
                 </span>
               </div>
               <p className="text-slate-400 text-[14px] font-medium leading-relaxed max-w-xs">
-                Dr. Mukul Thakur provides international standards of healthcare with over 30 years of clinical and diagnostic experience.
+                Dr. Mukul Thakur provides international standards of internal medicine and diabetes care with over 30 years of clinical expertise.
               </p>
               <div className="flex gap-4">
                  {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
@@ -506,8 +804,9 @@ export default function App() {
                  <li><a href="#home" className="hover:text-white transition-colors">Home Page</a></li>
                  <li><a href="#services" className="hover:text-white transition-colors">Medical Services</a></li>
                  <li><a href="#about" className="hover:text-white transition-colors">Dr. Thakur's Bio</a></li>
+                 <li><a href="#timings" className="hover:text-white transition-colors">OPD Operating Hours</a></li>
                  <li><a href="#gallery" className="hover:text-white transition-colors">Clinic Gallery</a></li>
-                 <li><a href="#appointment" className="hover:text-white transition-colors">Book Online</a></li>
+                 <li><a href="#appointment" className="hover:text-white transition-colors">Book via Call</a></li>
               </ul>
             </div>
 
@@ -539,23 +838,30 @@ export default function App() {
             </div>
 
             <div className="space-y-6">
-              <h4 className="text-[11px] font-bold mb-6 text-medical-400 uppercase tracking-[0.2em]">Subscribe</h4>
-              <p className="text-slate-500 text-[12px] font-medium">Get health tips and clinic updates directly in your inbox.</p>
-              <div className="relative">
-                <input type="email" placeholder="Email Address" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-xs font-medium focus:border-medical-500 outline-none" />
-                <button className="absolute right-1 top-1 bottom-1 bg-medical-600 px-3 rounded-md text-[10px] font-bold">Join</button>
-              </div>
+              <h4 className="text-[11px] font-bold mb-6 text-medical-400 uppercase tracking-[0.2em]">Book by Phone</h4>
+              <p className="text-slate-400 text-xs font-medium">
+                Helpline: <strong className="text-white block text-sm mt-0.5">{DOCTOR_CONTENT.contact.phone}</strong>
+              </p>
+              <p className="text-slate-400 text-xs">
+                Govandi West, Lotus Colony, Shivaji Nagar, Mumbai 400043
+              </p>
+              <a 
+                href={DOCTOR_CONTENT.contact.callUrl}
+                className="btn-primary !py-2 !px-4 text-xs w-full text-center inline-flex items-center justify-center gap-1.5"
+              >
+                <PhoneCall size={13} /> Call to Book Appointment
+              </a>
             </div>
           </div>
           
           <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
              <p className="text-slate-500 font-bold text-[9px] uppercase tracking-[0.2em]">
-               © {new Date().getFullYear()} DR. MUKUL THAKUR — PRECISION MEDICAL CARE
+               © {new Date().getFullYear()} DR. MUKUL THAKUR — CONSULTANT PHYSICIAN & DIABETOLOGIST
              </p>
              <div className="flex gap-8 text-slate-500 font-bold text-[9px] uppercase tracking-[0.2em]">
                <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
                <a href="#" className="hover:text-white transition-colors">Terms of Use</a>
-               <a href="#" className="hover:text-white transition-colors">Sitemap</a>
+               <a href={DOCTOR_CONTENT.contact.mapsUrl} target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Google Maps</a>
              </div>
           </div>
         </div>
