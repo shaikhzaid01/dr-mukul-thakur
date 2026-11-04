@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://drmukulthakur.vercel.app/sitemap.xml
+
